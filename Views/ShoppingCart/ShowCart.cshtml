@@ -1,0 +1,179 @@
+﻿@model IEnumerable<_3_Asp.Net_MVC.Models.CartDetail>
+
+@{
+
+    ViewData["Title"] = "Phopping Cart";
+    ShoppingDBContext dBContext = new ShoppingDBContext();
+    List<Category> categories = dBContext.Categories.ToList();
+    long sumtotal = 0;
+    int quantity = 0;
+    int index = 0;
+}
+<h3 style="margin-top:100px">SHOPPING CART</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <a href="/Home/AllProduct" class="btn btn-primary" type="button" style="color:#fff"><i class="fa-solid fa-chevron-left"></i> Continute Shopping</a>
+        </div>
+        <div class="col-7">
+            <strong><p style="color:red">@TempData["OverQuantity"]</p></strong>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-danger" type="button" style="color:#fff;margin-left:100px">
+                <a asp-action="RemoveAll">Remove All</a>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px">
+    <div class="col-12">
+        <div class="table-wrap" style="text-align:center">
+            <table class="table table-responsive table-borderless">
+                <thead>
+                <th>#</th>
+                <th>Image</th>
+                <th>Information</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Function</th>
+                </thead>
+                <tbody>
+                    @if (Model.Count() != 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            index = index + 1;
+                            List<Product> products = dBContext.Products.ToList();
+                            Product p = products.Find(c => c.ID == item.ProductID);
+                            if (p != null)
+                            {
+                                var thanhtien = item.Quantity * @p.Price;
+                                var total = thanhtien;
+                                @sumtotal += thanhtien;
+                                @quantity += @item.Quantity;
+                                <tr class="align-middle alert border-bottom" role="alert">
+                                    <td>@index</td>
+                                    <td>
+                                        @if (@p.Image != null)
+                                        {
+                                            <img class="pic" src="~/productimages/@p.Image" />
+                                        }
+                                        else
+                                        {
+                                            <img class="pic" src="~/productimages/null.jpg" />
+                                        }
+                                    </td>
+                                    <td style="text-align:left;color:black">
+                                        <strong><a href="/Product/Detail/@p.ID" style="color:black">@p.ProductName.ToUpper()</a></strong> <br>
+
+                                        @foreach (var c in categories)
+                                        {
+                                            if (c.ID == @p.TypeName)
+                                            {
+                                                @c.Name
+                                            }
+                                        } <br>
+                                        <b>Size: </b> @p.Size <br>
+                                    </td>
+                                    <td style="color:red; font-size:18px; font-weight:bold">
+                                        @p.Price.ToString("n0") <span style="font-size:15px; font-weight:bold">VND</span>
+                                    </td>
+                                    <td>
+                                        @using (Html.BeginForm("Update_Quantity", "ShoppingCart"))
+                                        {
+                                            <input type="hidden" value="@item.ProductID" name="ID_product" />
+                                            <input type="number" min="0" step="1" value="@item.Quantity" name="Quantity" style=" width:100px;font-weight:600; text-align:center" />
+                                            <input type="submit" value="Update" class="btn btn-success" /> <br />
+                                        }
+
+                                    </td>
+                                    <td style="color:red; font-size:18px; font-weight:bold">
+                                        @(total.ToString("n0")) <span style="font-size:15px; font-weight:bold">VND</span>
+                                    </td>
+                                    <td>
+
+                                        <div class="btn btn-danger">
+                                            @Html.ActionLink("Delete", "RemoveCartItem", new {  id = item.ID })
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        <tr class="align-middle alert" role="alert">
+                            <td colspan="5" style=" text-align:right">
+                                <h5><strong>TỔNG TIỀN: </strong></h5>
+                            </td>
+                            <td colspan="2" style=" text-align:left;color:red;font-size:20px;">
+                                <h5><strong>@sumtotal.ToString("n0") <span style="font-size:16px; font-weight:bold">VND</span></strong></h5>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="align-middle alert border-bottom" role="alert">
+                            <td colspan="7" style=" text-align:center">
+                                <strong>@TempData["Message"]</strong>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                <h4 style="text-align:center">THÔNG TIN ĐẶT HÀNG</h4>
+<hr />
+@using(Html.BeginForm("CheckOut", "CheckOut", FormMethod.Post))
+{
+    <div class="row">
+    <div class="align-left alert">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <b>Người nhận</b>
+                    <input type="text" class="form-control" name="name"/>
+                </div>
+                <div class="form-group">
+                    <b>Số điện thoại:</b>
+                    <input type="number" class="form-control" name="sdt" />
+                </div>
+                <div class="form-group">
+                    <b>Địa chỉ</b>
+                    <input type="text" class="form-control" name ="diachi"/>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="row" role="alert">
+                    <div class="col-4" style=" text-align: left;margin-top:20px">
+                        <h5><strong>TỔNG TIỀN:</strong></h5>
+                    </div>
+                    <div class="col-8" style=" text-align: right;margin-top:20px">
+                        <h5>@sumtotal.ToString("n0") <span style="font-size:16px; font-weight:bold"></span>VND</h5>
+                    </div>
+
+                    <div class="col-4" style=" text-align: left;margin-top:20px">
+                        <h6><strong>Tổng số lượng : </strong></h6>
+                    </div>
+                    <div class="col-8" style=" text-align: right;margin-top:20px">
+                        <input type="text" class="form-control" value="@quantity" name ="soluong"/>
+                    </div>
+                    <div colspan="6" style=" text-align:right;margin-top:40px"> 
+                        <input type="submit" value="XÁC NHẬN THANH TOÁN " class="btn btn-primary" style="height:50px;width:100%; font-size:20px" />
+                    </div>
+                    <div class="col-8" style=" text-align: center;margin-top:20px; color:red">
+                        <strong>@TempData["Fail"]</strong>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+</div>
+}

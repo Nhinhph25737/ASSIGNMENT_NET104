@@ -1,0 +1,93 @@
+﻿@model IEnumerable<_3_Asp.Net_MVC.Models.BillDetail>
+
+@{
+
+    ViewData["Title"] = "BillDetails";
+    ShoppingDBContext context = new ShoppingDBContext();
+    List<Product> products = context.Products.ToList();
+    List<Bill> bills = context.Bills.ToList();
+    int index = 0;
+    var bill = ViewData["BillID"] as Bill;
+}
+<h2 style="margin-top:100px">Chi tiết hóa đơn</h2>
+
+<div class="container">
+    <h5 style="color:red; text-align:left;margin-top:20px">Mã hóa đơn: @bill.ID</h5>
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-4">
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-7">
+            <div class="table-wrap" style="text-align:center">
+                <table class="table table-responsive table-borderless">
+                    <thead>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var pro = @products.Where(c => c.ID == @item.ProductID).FirstOrDefault();
+                            index = index + 1;
+                            <tr class="align-middle alert border-bottom" role="alert">
+                                <td>@index</td>
+                                <td>
+                                    <b>@pro.ProductName</b>
+                                </td>
+                                <td>
+                                    @if (@pro.Image != null)
+                                    {
+                                        <img class="pic" src="~/productimages/@pro.Image" />
+                                    }
+                                    else
+                                    {
+                                        <img class="pic" src="~/productimages/null.jpg" />
+                                    }
+                                </td>
+                                <td>
+                                    @item.Quantity
+                                </td>
+                                <td style="color:red">
+                                    @item.Price.ToString("n0") VND
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="table-wrap" style="text-align:center">
+                <table class="table table-responsive table-borderless">
+                    <thead>
+                    <th>Người nhận</th>
+                    <th>SĐT</th>
+                    <th>Địa chỉ</th>
+                    </thead>
+                    <tbody>
+                        <tr class="align-middle alert border-bottom" role="alert">
+                            <td>@bill.Recipient</td>
+                            <td>@bill.PhoneNumber</td>
+                            <td>@bill.Address</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    <a href="/Bill/ListBills" class="btn btn-primary" type="button" style="height: 45px;color:#fff"><i class="fa-solid fa-chevron-left"></i>Back to previous page</a>
+</p>
+

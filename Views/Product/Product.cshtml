@@ -1,0 +1,163 @@
+﻿@model IEnumerable<_3_Asp.Net_MVC.Models.Product>
+
+@{
+
+    ViewData["Title"] = "Product";
+    ShoppingDBContext dBContext = new ShoppingDBContext();
+    List<Category> categories = dBContext.Categories.ToList();
+    int index = 0;
+}
+
+<h2 style="margin-top:100px">PRODUCT  MANAGEMENT</h2>
+
+<div class="row" style="margin-top:20px">
+    <div class="col-2">
+        <p>
+            <button class="btn btn-primary" type="button" style="height: 45px;color:#fff">
+                <i class="fa-solid fa-plus"></i>
+                <a href="/Product/Create">Create New</a>
+            </button>
+        </p>
+    </div>
+    @*<div class="col-2">
+        <p>
+            <button class="btn btn-primary" type="button" style="height: 45px;color:#fff">
+                <i class="fa-solid fa-plus"></i>
+                <a href="/Product/RollBackDelete">RollBackDelete</a>
+            </button>
+        </p>
+    </div>*@
+    <div class="col-4">
+        @using (Html.BeginForm("FilterPrices", "product", FormMethod.Get))
+        {
+            <input type="number" class="form-control" value="" name="min" placeholder="Giá min">
+            <input type="number" class="form-control" value="" name="max" placeholder="Giá max">
+            <button type="submit" class="btn btn-primary">
+                <strong>tìm kiếm</strong>
+            </button>
+        }
+    </div>
+    <div class="col-3">
+        <div class="input-group">
+            @using (Html.BeginForm("Search", "Product", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" name="tim" placeholder="Tìm kiếm theo tên">
+                    <button type="submit" class="btn btn-primary">
+                        <strong>Tìm kiếm</strong>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="input-group">
+            @using (Html.BeginForm("FilterCategory", "Product", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <select class="form-select" name="category">
+                        <option>--Chọn phân loại--</option>
+                        @foreach (var item in @categories)
+                        {
+                            <option>@item.Name</option>
+                        }
+                    </select>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary" style="width:100px">
+                            <strong>Lọc</strong>
+                        </button>
+                    </span>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+<div class="table-wrap" style="text-align:center">
+    <table class="table table-responsive table-borderless">
+        <thead>
+        <th>#</th>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Category Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Status</th>
+            @*<th>Information</th>*@
+        <th>Function</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                index = index + 1;
+                <tr class="align-middle alert border-bottom" role="alert">
+                    <td>@index</td>
+                    <td>
+                        @if (item.Price * item.AvailableQuantity > 10000000)
+                        {
+                            <b style="color: black">@item.ProductName.ToUpper()</b>
+                        }
+                        else
+                        {
+                            <b>@item.ProductName.ToUpper()</b>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Image != null)
+                        {
+                            <img class="pic" src="~/productimages/@item.Image" />
+                        }
+                        else
+                        {
+                            <img class="pic" src="~/productimages/null.jpg" />
+                        }
+                    </td>
+                    <td>
+                        @foreach (var c in categories)
+                        {
+                            if (c.ID == @item.TypeName)
+                            {
+                                @c.Name
+                            }
+                        }
+                    </td>
+                    <td style="color:red">
+                        @item.Price.ToString("n0") <span style="font-size:14px; font-weight:bold">VND</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AvailableQuantity)
+                    </td>
+                    <td>
+                        @* @if(item.Status == 1)
+                            {
+                            @:Còn hàng
+                            }
+                            else
+                            {
+                            @:Hết hàng
+                            }*@
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    @* <td style="text-align:left;">
+
+                        <b>Description: </b> @Html.DisplayFor(modelItem => item.Description) <br>
+                        <b>Supplier: </b>@Html.DisplayFor(modelItem => item.Supplier) <br>
+                        <b>Size: </b> @Html.DisplayFor(modelItem => item.Size) <br>
+                        </td>*@
+                    <td>
+                        <div class="btn btn-primary">
+                            @Html.ActionLink("Detail", "Detail","Product", new {  id = item.ID })
+                        </div>
+                        <div class="btn btn-success">
+                            @Html.ActionLink("Edit","EditProduct","Product", new { id = item.ID })
+                        </div>
+                        <div class="btn btn-danger">
+                            @Html.ActionLink("Delete", "Delete","Product", new {  id = item.ID })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

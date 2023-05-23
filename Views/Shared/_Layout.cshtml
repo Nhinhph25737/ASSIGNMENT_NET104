@@ -1,0 +1,170 @@
+﻿@{
+    var username = Context.Session.GetString("UserName");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] SHIMANO</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_3_Asp.Net_MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/images" />
+    <link rel="stylesheet" href="~/js/site.js" />
+    <script src="~/js/site.js"></script>S
+</head>
+<body>
+    <!-- ======= Top Bar ======= -->
+    <section id="topbar" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+            <div class="contact-info d-flex align-items-center">
+                <i class="fa-solid fa-envelope"></i>&emsp13;<a>contact@shimano.com</a>&emsp13;|&emsp13;
+                <i class="fa-solid fa-mobile"></i>&emsp13;<span>+1 5589 55488 55</span>S
+            </div>
+
+            <div class="social-links d-none d-md-flex">
+                <a href="/Login/Login" class="twitter"><i class="fa-solid fa-user"></i> &emsp13;Tài khoản @username</a>
+                <a href="/CheckOut/UserBills" class="facebook"><i class="fa-solid fa-earth-americas"></i>&emsp13;Đơn hàng</a>
+                <a href="/ShoppingCart/ShowCart"><i class="fa-solid fa-basket-shopping"></i>&emsp13;Giỏ hàng </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= Header ======= -->
+
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-3 logo">
+                    <a href="/Home/Index"><em><i style="font-weight: bold;color:#01b1d7">SHIMANO</i></em></a>
+                </div>
+                <div class="col-md-7">
+                    <nav id="navbar" class="navbar" style="text-align: center; margin-left: 70px;">
+                        <ul>
+                            <li><a class="nav-link scrollto active " asp-area="" asp-controller="Home" asp-action="Index">HOME</a></li>
+                            <li class="dropdown">
+                                <a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="AllProduct">PRODUCTS <i class="fa-solid fa-angle-down"></i></a>
+                                <ul>
+                                    <li><a href="#sanpham">MOUNTAIN BIKES</a></li>
+                                    <li><a href="#sanpham">ROAD BIKES</a></li>
+                                    <li><a href="#sanpham">HYBIRD BIKES</a></li>
+                                    <li><a href="#sanpham">ELECTRA BIKES</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="nav-link scrollto" asp-area="" asp-controller="Home" asp-action="About">ABOUT US</a></li>
+                            <li><a class="nav-link scrollto" asp-area="" asp-controller="Product" asp-action="Redirect">CRUD PRODUCTS</a></li>
+                            <li><a class="nav-link scrollto" asp-area="" asp-controller="Bill" asp-action="ListBills">MANAGEMENT BILLS</a></li>
+                        </ul>
+                        <i class="bi bi-list mobile-nav-toggle"></i>
+                    </nav>
+                </div>
+                <div class="col-md-2">
+                   
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--Main-->
+    <div class="container-fluid">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <!--End Main-->
+    <!--Footer-->
+    <div class="card py-5 border-0 px-0 mx-0 imgfooter">
+        <div class="card-body text-center">
+            <div class="row  justify-content-center">
+                <div class="col-auto">
+                    <h6><b>Still have more questions ?</b></h6>
+                    <small class="text-dark">Call/Text <span class="mx-2">+91.1630.412.999</span>and with real person.</small>
+                    <div class="row justify-content-center">
+                        <div class="col-10">
+                            <button type="button" class="btn btn-lg btn-block my-5 btn1">
+                                <a id="link" href="#">Try It</a>
+                            </button>
+                            <h6> <b>100% Money Back Guarantee</b></h6>
+                            <small class="text-dark">If you'r not satsified for any reason, we'll refund your money</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-info">
+                            <h3 style="color:#0dd3fe; text-align:left"><em>SHIMANO</em></h3>
+                            <p>
+                                A108 Adam Street <br>
+                                NY 535022, USA<br><br>
+                                <strong>Phone:</strong> +1 5589 55488 55<br>
+                                <strong>Email:</strong> info@example.com<br>
+                            </p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="fa-brands fa-google-plus-g"></i></a>
+                                <a href="#" class="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="fa-solid fa-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                Shimano © Copyright – 2023 Shimano Bicycles USA, Inc. – All Rights Reserved
+            </div>
+            <div class="credits">
+                
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
