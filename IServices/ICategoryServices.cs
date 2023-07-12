@@ -12,6 +12,6 @@ namespace _3_Asp.Net_MVC.IServices
         //Phuong thuc sua
         public bool UpdateCategory(Category p);
         //Phuong thuc xoa
-        public bool DeleteCategory(Category id);
+        public bool DeleteCategory(Category p);
     }
 }

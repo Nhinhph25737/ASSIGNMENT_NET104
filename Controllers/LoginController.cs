@@ -32,7 +32,7 @@ namespace _3_Asp.Net_MVC.Controllers
                     {
                         HttpContext.Session.SetString("UserName", user.UserName);
                         HttpContext.Session.SetString("IdUser", (user.ID).ToString());
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Redirect", "ProductManage", new { area = "Admin" });
                     }
                     else
                     {

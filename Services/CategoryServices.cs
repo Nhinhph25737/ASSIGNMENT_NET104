@@ -23,11 +23,11 @@ namespace _3_Asp.Net_MVC.Services
             }
         }
 
-        public bool DeleteCategory(Category id)
+        public bool DeleteCategory(Category p)
         {
             try
             {
-                var c = context.Categories.Find(id);
+                var c = context.Categories.Where(c=> c.ID == p.ID).FirstOrDefault();
                 context.Categories.Remove(c);
                 context.SaveChanges();
                 return true;

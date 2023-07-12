@@ -645,19 +645,19 @@ h6 {
 }
 
     .table thead th {
-        padding: 20px;
-        font-size: 18px;
+        padding: 15px;
+        font-size: 16px;
         color: white;
         text-align: center;
     }
 
 .container .table-wrap {
-    margin: 5px auto;
+    margin: 3px auto;
     overflow-x: auto
 }
 
     .container .table-wrap::-webkit-scrollbar {
-        height: 5px;
+        height: 3px;
     }
 
     .container .table-wrap::-webkit-scrollbar-thumb {
@@ -667,20 +667,15 @@ h6 {
 
 
 .table tbody td {
-    padding: 20px;
+    padding: 15px;
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 35px;
     min-height: 100px;
 }
-
-.text-dark {
-    font-size: 16px;
-}
-
 .btn1 {
-    font-size: 20px;
+    font-size: 18px;
     width: 120px;
     height: 45px;
     font-weight: 600;
@@ -689,18 +684,26 @@ h6 {
     border: none;
 }
 
-/*.table tbody tr td:nth-of-type(1) {
-    max-width: 150px;
+.table tbody tr td:nth-of-type(2) {
+    min-width: 200px;
+}
+.table tbody tr td:nth-of-type(6) {
+    min-width: 150px;
 }
 
+.table tbody tr td:nth-of-type(5) {
+    min-width: 150px;
+}
+
+.table tbody tr td:nth-of-type(4) {
+    min-width: 150px;
+}
 .table tbody tr td:nth-of-type(8) {
-    width: 250px;
+    min-width: 150px;
 }
-
 .table tbody tr td:nth-of-type(7) {
-    min-width: 230px;
-}*/
-
+    min-width: 150px;
+}
 @media(min-width: 992px) {
     .container .table-wrap {
         overflow: hidden;

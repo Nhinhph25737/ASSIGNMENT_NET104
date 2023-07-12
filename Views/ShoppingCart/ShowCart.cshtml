@@ -9,18 +9,18 @@
     int quantity = 0;
     int index = 0;
 }
-<h3 style="margin-top:100px">SHOPPING CART</h3>
+<h3 style="margin-top:100px">GIỎ HÀNG</h3>
 <div class="container-fluid">
     <div class="row">
         <div class="col-3">
-            <a href="/Home/AllProduct" class="btn btn-primary" type="button" style="color:#fff"><i class="fa-solid fa-chevron-left"></i> Continute Shopping</a>
+            <a href="/Home/AllProduct" class="btn btn-primary" type="button" style="color:#fff"><i class="fa-solid fa-chevron-left"></i> Tiếp tục mua sắm</a>
         </div>
         <div class="col-7">
             <strong><p style="color:red">@TempData["OverQuantity"]</p></strong>
         </div>
         <div class="col-2">
             <button class="btn btn-danger" type="button" style="color:#fff;margin-left:100px">
-                <a asp-action="RemoveAll">Remove All</a>
+                <a asp-action="RemoveAll">Xóa tất cả</a>
             </button>
         </div>
     </div>
@@ -31,12 +31,12 @@
             <table class="table table-responsive table-borderless">
                 <thead>
                 <th>#</th>
-                <th>Image</th>
-                <th>Information</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Function</th>
+                <th>Ảnh</th>
+                <th>Thông tin sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+                <th></th>
                 </thead>
                 <tbody>
                     @if (Model.Count() != 0)
@@ -65,7 +65,7 @@
                                         }
                                     </td>
                                     <td style="text-align:left;color:black">
-                                        <strong><a href="/Product/Detail/@p.ID" style="color:black">@p.ProductName.ToUpper()</a></strong> <br>
+                                        <strong><a href="/Home/Detail/@p.ID" style="color:black">@p.ProductName.ToUpper()</a></strong> <br>
 
                                         @foreach (var c in categories)
                                         {
@@ -84,7 +84,7 @@
                                         {
                                             <input type="hidden" value="@item.ProductID" name="ID_product" />
                                             <input type="number" min="0" step="1" value="@item.Quantity" name="Quantity" style=" width:100px;font-weight:600; text-align:center" />
-                                            <input type="submit" value="Update" class="btn btn-success" /> <br />
+                                            <input type="submit" value="Cập nhật" class="btn btn-success" /> <br />
                                         }
 
                                     </td>
@@ -94,7 +94,7 @@
                                     <td>
 
                                         <div class="btn btn-danger">
-                                            @Html.ActionLink("Delete", "RemoveCartItem", new {  id = item.ID })
+                                            @Html.ActionLink("Xóa", "RemoveCartItem", new {  id = item.ID })
                                         </div>
                                     </td>
 
@@ -103,7 +103,7 @@
                         }
                         <tr class="align-middle alert" role="alert">
                             <td colspan="5" style=" text-align:right">
-                                <h5><strong>TỔNG TIỀN: </strong></h5>
+                                <h5><strong>THÀNH TIỀN: </strong></h5>
                             </td>
                             <td colspan="2" style=" text-align:left;color:red;font-size:20px;">
                                 <h5><strong>@sumtotal.ToString("n0") <span style="font-size:16px; font-weight:bold">VND</span></strong></h5>
@@ -161,7 +161,7 @@
                         <h6><strong>Tổng số lượng : </strong></h6>
                     </div>
                     <div class="col-8" style=" text-align: right;margin-top:20px">
-                        <input type="text" class="form-control" value="@quantity" name ="soluong"/>
+                        <p> @quantity</p>
                     </div>
                     <div colspan="6" style=" text-align:right;margin-top:40px"> 
                         <input type="submit" value="XÁC NHẬN THANH TOÁN " class="btn btn-primary" style="height:50px;width:100%; font-size:20px" />

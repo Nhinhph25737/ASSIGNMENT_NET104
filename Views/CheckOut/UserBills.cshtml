@@ -7,7 +7,7 @@
     List<BillDetail> billDetails = context.BillDetails.ToList();
     int index = 0;
 }
-<h2 style="margin-top:100px">YOUR'S BILL</h2>
+<h2 style="margin-top:100px">HÓA ĐƠN CỦA BẠN</h2>
 
 <div class="container">
     <div class="row" style="margin-top:20px">
@@ -25,12 +25,12 @@
         <table class="table table-responsive table-borderless">
             <thead>
             <th>#</th>
-            <th>Bill ID</th>
-            <th>Create Date</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Function</th>
+            <th>Mã hóa đơn</th>
+            <th>Ngày mua</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th>Trạng thái</th>
+            <th></th>
             </thead>
             <tbody>
                 @if (Model.Count() != 0)
@@ -83,6 +83,6 @@
 
     </div>
     <p>
-        <a href="/Home/AllProduct" class="btn btn-primary" type="button" style="height: 45px;color:#fff"><i class="fa-solid fa-chevron-left"></i> Shopping Now</a>
+        <a href="/Home/Index" class="btn btn-primary" type="button" style="height: 45px;color:#fff"><i class="fa-solid fa-chevron-left"></i> Trở lại trang chủ</a>
     </p>
 </div>

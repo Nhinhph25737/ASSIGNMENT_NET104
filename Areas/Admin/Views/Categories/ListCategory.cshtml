@@ -1,0 +1,126 @@
+﻿@model _3_Asp.Net_MVC.Models.Category
+
+@{
+    ViewData["Title"] = "ListCategory";
+}
+
+@{
+    Layout = "~/Views/Shared/LayoutForAdmin.cshtml";
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    ViewData["Title"] = "ListCategory";
+    int index = 0;
+    ShoppingDBContext context = new ShoppingDBContext();
+    var listcategory = context.Categories.ToList();
+}
+
+<h2>QUẢN LÝ PHÂN LOẠI</h2>
+
+<div class="row">
+    <div class="col-5">
+        @using (Html.BeginForm("Create", "Categories", FormMethod.Get))
+        {
+            <h5 style="text-align:center;"><strong>TẠO MỚI PHÂN LOẠI</strong></h5>
+            <hr />
+            <div class="row rowdetail">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <strong>Tên Phân loại</strong>
+                        </div>
+                        <div class="col-9">
+                            <input name="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-3">
+                            <strong>Mô tả</strong>
+                        </div>
+                        <div class="col-9">
+                            <textarea name="Description" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-3">
+                            <strong>Trạng thái</strong>
+                        </div>
+                        <div class="col-9">
+                            <select name = "Status" class="form-select">
+                                <option value="1">Đang hoạt động</option>
+                                <option value="2">Ngừng hoạt động</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-6">
+                            <button class="btn btn-primary" style="width:100%;height:45px" type="submit">THÊM MỚI&emsp13;&emsp13;<span class="fa-solid fa-plus ps-2"></span></button>
+                        </div>
+                        <div class="col-6">
+                            <button type="reset" value="Reset" class="btn btn-danger" style="width:100%;height:45px">LÀM MỚI&emsp13;&emsp13;<span class="fa-solid fa-arrows-rotate"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-7">
+        <div class="table-wrap" style="text-align:center">
+            <table class="table table-responsive table-borderless">
+                <thead>
+                <th>STT</th>
+                <th>Tên phân loại</th>
+                <th>Mô tả</th>
+                <th>Trạng thái</th>
+                <th></th>
+                </thead>
+                <tbody>
+                    @foreach (var item in listcategory)
+                    {
+                        index = index + 1;
+                        <tr class="align-middle alert border-bottom" role="alert">
+                            <td>@index</td>
+                            <td>
+                                @item.Name
+                            </td>
+
+                            <td>
+                                @item.Description
+                            </td>
+                            <td style="color:red">
+                                @if(@item.Status == 1)
+                                {
+                                    @: Đang hoạt động
+                                }
+                                else
+                                {
+                                    @: Ngừng hoạt động
+                                }
+                                <td>
+                                <div class="btn btn-success" style="width:80px;margin-bottom:5px">
+                                        @Html.ActionLink("Sửa","Create","Categories", new { id = item.ID },
+                                new { area = "Admin" })
+                                </div><br>
+                                <div class="btn btn-danger" style="width:80px;">
+                                        @Html.ActionLink("Xóa", "Delete","Categories", new { id = item.ID },
+                                new { area = "Admin" })
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

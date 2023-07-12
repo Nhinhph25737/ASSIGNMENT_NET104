@@ -39,7 +39,7 @@ namespace _3_Asp.Net_MVC.Controllers
                         Recipient = f["name"],
                         PhoneNumber = f["sdt"],
                         Address = f["diachi"],
-                        Status = 1,
+                        Status = 0,
                     };
                     shopDBContext.Bills.Add(bill);
                     shopDBContext.SaveChanges();
@@ -70,15 +70,16 @@ namespace _3_Asp.Net_MVC.Controllers
                 else // chưa đăng nhập
                 {
                     //Tạo tài khoản
-                   User user = new User()
-                   {
-                       UserName = "null",
-                       Password = "null",
-                       RoleID = Guid.Parse("F5F014A3-541B-4937-9A09-A4198CDA9CDF"),
-                       Status = 0,
-                   };
-                    shopDBContext.Users.Add(user);
-                    shopDBContext.SaveChanges();
+                   //User user = new User()
+                   //{
+                   //    UserName = "null",
+                   //    Password = "null",
+                   //    RoleID = Guid.Parse("F5F014A3-541B-4937-9A09-A4198CDA9CDF"),
+                   //    Status = 0,
+                   //};
+                   var user = userServices.GetAllUser().Where(c=> c.RoleID == Guid.Parse("F5F014A3-541B-4937-9A09-A4198CDA9CDF")).FirstOrDefault();
+                    //shopDBContext.Users.Add(user);
+                    //shopDBContext.SaveChanges();
                     HttpContext.Session.SetString("IdUser", (user.ID).ToString());
                     // Tạo hóa đơn
                     Bill bill = new Bill()
@@ -88,7 +89,7 @@ namespace _3_Asp.Net_MVC.Controllers
                         Recipient = f["name"],
                         PhoneNumber = f["sdt"],
                         Address = f["diachi"],
-                        Status = 1,
+                        Status = 0,
                     };
                     shopDBContext.Bills.Add(bill);
                     shopDBContext.SaveChanges();

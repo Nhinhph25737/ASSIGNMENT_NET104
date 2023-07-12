@@ -12,7 +12,7 @@
 <h2 style="margin-top:100px">Chi tiết hóa đơn</h2>
 
 <div class="container">
-    <h5 style="color:red; text-align:left;margin-top:20px">Mã hóa đơn: @bill.ID</h5>
+    <h5><strong>Mã hóa đơn: </strong> <span style="color:red; text-align:left;margin-top:20px">@bill.ID</span></h5>
     <div class="row">
         <div class="col-2">
         </div>
@@ -29,10 +29,10 @@
                 <table class="table table-responsive table-borderless">
                     <thead>
                     <th>#</th>
-                    <th>Product Name</th>
-                    <th>Image</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
@@ -88,6 +88,6 @@
     </div>
 </div>
 <p>
-    <a href="/Bill/ListBills" class="btn btn-primary" type="button" style="height: 45px;color:#fff"><i class="fa-solid fa-chevron-left"></i>Back to previous page</a>
+    <a href="/Bill/ListBills" class="btn btn-primary" type="button" style="height: 45px;color:#fff"><i class="fa-solid fa-chevron-left"></i>Trở lại trang trước</a>
 </p>
 

@@ -28,7 +28,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=ProductManage}/{action=Redirect}/{id?}"
+    );
+
 app.MapControllerRoute( // Định tuyến 
     name: "default", // Tên Route
     pattern: "{controller=Home}/{action=AllProduct}/{id?}"); // Mẫu URL
+
 app.Run();

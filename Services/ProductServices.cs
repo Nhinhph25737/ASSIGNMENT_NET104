@@ -16,10 +16,13 @@ namespace _3_Asp.Net_MVC.Services
             var products = context.Products.ToList();
             foreach (var item in products)
             {
-                if (item.ProductName.Equals(p.ProductName) && item.Supplier.Equals(p.Supplier))
+                if(item.ID == p.ID)
+                {
+                    return false;
+                }
+                else if (item.ProductName.Equals(p.ProductName) && item.Supplier.Equals(p.Supplier))
                 {
                     return true;
-                    break;
                 }
             }
             return false;

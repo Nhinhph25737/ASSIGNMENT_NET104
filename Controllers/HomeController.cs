@@ -51,8 +51,12 @@ namespace _3_Asp.Net_MVC.Controllers
             var Products = _productServices.GetAllProduct().Where(c=> c.AvailableQuantity >0).ToList();
             return View("AllProduct", Products); // Trả về một View cụ thể đi kèm với Model
         }
-
-
+        // Chi tiết sản phẩm
+        public IActionResult Detail(Guid id) // Chỉ thực hiện việc hiển thị ra form Detail
+        {
+            var p = _productServices.GetProductById(id);
+            return View(p);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
